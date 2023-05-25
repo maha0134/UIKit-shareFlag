@@ -10,14 +10,14 @@ import UIKit
 class DetailViewController: UIViewController {
 	@IBOutlet var imageView: UIImageView!
 	var selectedImage: String?
-	
+	var countryName: Substring = ""
     override func viewDidLoad() {
         super.viewDidLoad()
 		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareButtonTapped))
 		
 		if let selectedImage {
 			imageView.image = UIImage(named: selectedImage)
-			let countryName = selectedImage.split(separator: "@")[0]
+			countryName = selectedImage.split(separator: "@")[0]
 			title = "Flag of \(countryName.uppercased())"
 		}
         
@@ -38,7 +38,7 @@ class DetailViewController: UIViewController {
 			print("No image found")
 			return
 		}
-		let vc = UIActivityViewController(activityItems: [image], applicationActivities: [])
+		let vc = UIActivityViewController(activityItems: [image, String(countryName)], applicationActivities: [])
 		vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
 		present(vc, animated: true)
 	}
