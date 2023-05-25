@@ -17,11 +17,23 @@ class DetailViewController: UIViewController {
 		
 		if let selectedImage {
 			imageView.image = UIImage(named: selectedImage)
+			let countryName = selectedImage.split(separator: "@")[0]
+			title = "Flag of \(countryName.uppercased())"
 		}
         
     }
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		navigationController?.hidesBarsOnTap = true
+	}
+	
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		navigationController?.hidesBarsOnTap = false
+	}
 	
 	@objc func shareButtonTapped() {
+		//check if image exists
 		guard let image = imageView.image else {
 			print("No image found")
 			return
